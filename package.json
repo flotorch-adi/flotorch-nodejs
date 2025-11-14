@@ -1,0 +1,36 @@
+{
+	"name": "flotorch",
+	"version": "0.1.0",
+	"license": "MIT",
+	"homepage": "https://flotorch.ai",
+	"author": {
+		"name": "Adi Budithi",
+		"email": "adi@flotorch.ai"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/flotorch-adi/flotorch-nodejs"
+	},
+	"private": true,
+	"packageManager": "npm@11.6.1",
+	"workspaces": [
+		"packages/*",
+		"examples/*"
+	],
+	"scripts": {
+		"build": "turbo run build",
+		"build:sdk": "turbo run build --filter=@flotorch/sdk",
+		"build:langchain": "turbo run build --filter=@flotorch/langchain",
+		"dev": "turbo run dev",
+		"dev:sdk": "turbo run dev --filter=@flotorch/sdk",
+		"dev:langchain": "turbo run dev --filter=@flotorch/langchain",
+		"clean": "turbo run clean",
+		"test": "turbo run test",
+		"example:basic": "npm run start --workspace=flotorch-example-basic"
+	},
+	"devDependencies": {
+		"typescript": "^5.3.0",
+		"tsup": "^8.0.0",
+		"turbo": "^2.6.1"
+	}
+}

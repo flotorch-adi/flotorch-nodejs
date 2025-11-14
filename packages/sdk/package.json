@@ -1,0 +1,32 @@
+{
+    "name": "@flotorch/sdk",
+    "version": "0.1.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+		"LICENSE"
+    ],
+    "scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"clean": "rm -rf dist"
+	},
+    "peerDependencies": {
+		"@langchain/core": "^1.0.2"
+	},
+    "peerDependenciesMeta": {
+		"@langchain/core": {
+			"optional": false
+		}
+	}
+}

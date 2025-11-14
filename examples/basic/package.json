@@ -1,0 +1,13 @@
+{
+	"name": "flotorch-example-basic",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"start": "node llm_example.ts"
+	},
+	"dependencies": {
+		"@flotorch/sdk": "*",
+		"@flotorch/langchain": "*"
+	}
+}

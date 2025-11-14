@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "esnext",
+		"moduleResolution": "bundler", // ← fixes .ts/.js resolution
+		"strict": true,
+		"esModuleInterop": true,
+		"allowImportingTsExtensions": false, // To allow using .ts file imports without .js in source
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"baseUrl": ".", // ← required for absolute imports
+		// "paths": {
+		// 	"@flotorch/sdk": [
+		// 		"packages/sdk/src"
+		// 	],
+		// 	"@flotorch/langchain": [
+		// 		"packages/langchain/src"
+		// 	]
+		// }
+	},
+	// "include": [
+	// 	"packages"
+	// ],
+	// "exclude": [
+	// 	"node_modules",
+	// 	"dist",
+	// 	"**/*.test.ts",
+	// 	"**/*.spec.ts"
+	// ],
+	// "references": [ // Optional - for building from root
+	// 	{
+	// 		"path": "./packages/sdk/src"
+	// 	},
+	// 	{
+	// 		"path": "./packages/langchain/src"
+	// 	}
+	// ],
+}
