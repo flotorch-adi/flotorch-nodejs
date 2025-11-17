@@ -22,7 +22,7 @@
 		"clean": "rm -rf dist"
 	},
 	"peerDependencies": {
-		"@langchain/core": "^1.0.2",
+		"@langchain/core": "^1.0.0",
 		"@langchain/openai": "^1.0.0"
 	},
 	"peerDependenciesMeta": {
