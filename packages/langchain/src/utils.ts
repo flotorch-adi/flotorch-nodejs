@@ -12,7 +12,8 @@ import {
     ToolMessageFields
 } from "@langchain/core/messages";
 import { ChatGeneration, ChatResult } from "@langchain/core/outputs";
-import { FloTorchMessage, FloTorchToolCall } from "@flotorch/sdk";
+import { FloTorchMessage, FloTorchToolCall, FloTorchToolDefinition } from "@flotorch/sdk";
+import { ToolDefinition } from "@langchain/core/language_models/base";
 
 
 export function convertToFloTorchMessages(messages: BaseMessage[]): FloTorchMessage[] {
@@ -160,4 +161,18 @@ export function convertToLangChainToolCalls(tool_calls: FloTorchToolCall[]): Too
         return formattedToolCall
     });
     return formattedToolCalls
+}
+
+export function convertToFloTorchToolDefinitions(tool_definitions: ToolDefinition[]): FloTorchToolDefinition[] {
+    const formattedToolDefinitions: FloTorchToolDefinition[] = tool_definitions.map((tool_definition)=>{
+        const formattedToolDefinition: FloTorchToolDefinition = {
+            type: 'function',
+            name: tool_definition.function.name,
+            parameters: tool_definition.function.parameters,
+            description: tool_definition.function.description,
+        }
+        return formattedToolDefinition;
+    })
+
+    return formattedToolDefinitions;
 }

@@ -2,7 +2,8 @@ import {
     BaseChatModel,
     BaseChatModelCallOptions,
     BaseChatModelParams,
-    BindToolsInput } from "@langchain/core/language_models/chat_models";
+    BindToolsInput
+} from "@langchain/core/language_models/chat_models";
 import { BaseMessage } from "@langchain/core/messages";
 import { ChatResult } from "@langchain/core/outputs";
 import { ToolDefinition } from "@langchain/core/language_models/base";
@@ -11,6 +12,7 @@ import { FloTorchLLM, FloTorchParams } from "@flotorch/sdk";
 import {
     convertToChatResult,
     convertToFloTorchMessages,
+    convertToFloTorchToolDefinitions,
     convertToLangChainMessages,
 } from "./utils"
 
@@ -25,7 +27,7 @@ export class FloTorchLangChainLLM extends BaseChatModel {
     _baseUrl: string;
     _llm: FloTorchLLM;
     _tools?: ToolDefinition[];
-    
+
     constructor(fields: FloTorchLangChainLLMParams) {
         super(fields ?? {});
         this._model = fields?.model;
@@ -40,16 +42,18 @@ export class FloTorchLangChainLLM extends BaseChatModel {
     }
 
     async _generate(messages: BaseMessage[]): Promise<ChatResult> {
-        console.log("INPUT LANGCHAIN MESSAGES",  JSON.stringify(messages, null, 2))
+        console.log("INPUT LANGCHAIN MESSAGES", JSON.stringify(messages, null, 2))
 
         // LangChain to FloTorch
         const inputFloTorchMessages = convertToFloTorchMessages(messages);
 
-        console.log("INPUT FLOTORCH MESSAGES",  JSON.stringify(inputFloTorchMessages, null, 2))
+        console.log("INPUT FLOTORCH MESSAGES", JSON.stringify(inputFloTorchMessages, null, 2))
 
-        const outputFloTorchMessages = await this._llm.invoke(inputFloTorchMessages, this._tools);
+        const inputFloTorchToolDefinitions = convertToFloTorchToolDefinitions(this._tools ?? []);
 
-        console.log("OUTPUT FLOTORCH MESSAGES",  JSON.stringify(outputFloTorchMessages, null, 2))
+        const outputFloTorchMessages = await this._llm.invoke(inputFloTorchMessages, inputFloTorchToolDefinitions);
+
+        console.log("OUTPUT FLOTORCH MESSAGES", JSON.stringify(outputFloTorchMessages, null, 2))
 
         // FloTorch to LangChain
         const langchainMessages = convertToLangChainMessages(outputFloTorchMessages)
@@ -58,7 +62,7 @@ export class FloTorchLangChainLLM extends BaseChatModel {
         return result;
     }
 
-    bindTools(tools: BindToolsInput[], kwargs?: Partial<BaseChatModelCallOptions>) {        
+    bindTools(tools: BindToolsInput[], kwargs?: Partial<BaseChatModelCallOptions>) {
         return new FloTorchLangChainLLM({
             model: this._model,
             apiKey: this._apiKey,

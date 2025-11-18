@@ -20,13 +20,5 @@
 		"build": "tsup",
 		"dev": "tsup --watch",
 		"clean": "rm -rf dist"
-	},
-    "peerDependencies": {
-		"@langchain/core": "^1.0.0"
-	},
-    "peerDependenciesMeta": {
-		"@langchain/core": {
-			"optional": false
-		}
 	}
 }
